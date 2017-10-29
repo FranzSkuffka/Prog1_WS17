@@ -158,3 +158,17 @@ print("")
 print("What went sideways")
 for report in badOperations:
   print(report)
+
+
+"""
+Exercise 4
+
+- We get the error
+
+  TypeError: cannot concatenate 'str' and 'int' objects
+
+  when running `"string" + 1`.
+
+- Python3, in comparison to, say, ES6 does not casting int to string when using the '+' operator.
+
+"""
