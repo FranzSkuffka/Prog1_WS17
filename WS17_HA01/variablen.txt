@@ -1,0 +1,9 @@
+i 3 <class 'int'> Literal constant as defined
+j 2 <class 'int'> Literal constant as defined
+k 1.5 <class 'float'> Literal constant as defined
+s  hello  <class 'str'> Literal constant as defined
+b True <class 'bool'> Literal constant as defined
+jk 3.5 <class 'float'> Int get coerced to float, 'the least common denominator type'. Then values are added.
+svar1  hello  hello  hello  <class 'str'> The string typeclass defines this behavior for multiplication with integers.
+svar2  hello  hello  hello  <class 'str'> The string typeclass defines this behavior for multiplication with integers.
+ib 4 <class 'int'> Bool is a subclass of int. True == 1, False == 2.

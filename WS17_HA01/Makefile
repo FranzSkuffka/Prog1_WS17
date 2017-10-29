@@ -1,5 +1,7 @@
 all:
 	./workload.py
+	./type_quirks.py
+	./type_quirks.py > variablen.txt
 
 watch:
-	watch ./workload.py
+	watch ./type_quirks.py
