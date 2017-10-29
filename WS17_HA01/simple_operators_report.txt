@@ -1,0 +1,190 @@
+myint = 7
+myfloat = 3.4
+mystring = "Foo"
+ 
+
+
+
+
+<function add at 0x10ef5cf28>
+mystring, mystring
+FooFoo
+<class 'str'>
+
+myint, myint
+14
+<class 'int'>
+
+myfloat, myfloat
+6.8
+<class 'float'>
+
+mystring, myint
+must be str, not int
+
+myint, myfloat
+10.4
+<class 'float'>
+
+myfloat, mystring
+unsupported operand type(s) for +: 'float' and 'str'
+
+myint, mystring
+unsupported operand type(s) for +: 'int' and 'str'
+
+myfloat, myint
+10.4
+<class 'float'>
+
+mystring, myfloat
+must be str, not float
+
+
+
+
+<function subtract at 0x10f1fd840>
+mystring, mystring
+unsupported operand type(s) for -: 'str' and 'str'
+
+myint, myint
+0
+<class 'int'>
+
+myfloat, myfloat
+0.0
+<class 'float'>
+
+mystring, myint
+unsupported operand type(s) for -: 'str' and 'int'
+
+myint, myfloat
+3.6
+<class 'float'>
+
+myfloat, mystring
+unsupported operand type(s) for -: 'float' and 'str'
+
+myint, mystring
+unsupported operand type(s) for -: 'int' and 'str'
+
+myfloat, myint
+-3.6
+<class 'float'>
+
+mystring, myfloat
+unsupported operand type(s) for -: 'str' and 'float'
+
+
+
+
+<function multiply at 0x10f1fd7b8>
+mystring, mystring
+can't multiply sequence by non-int of type 'str'
+
+myint, myint
+49
+<class 'int'>
+
+myfloat, myfloat
+11.559999999999999
+<class 'float'>
+
+mystring, myint
+FooFooFooFooFooFooFoo
+<class 'str'>
+
+myint, myfloat
+23.8
+<class 'float'>
+
+myfloat, mystring
+can't multiply sequence by non-int of type 'float'
+
+myint, mystring
+FooFooFooFooFooFooFoo
+<class 'str'>
+
+myfloat, myint
+23.8
+<class 'float'>
+
+mystring, myfloat
+can't multiply sequence by non-int of type 'float'
+
+
+
+
+<function divide at 0x10f1fd730>
+mystring, mystring
+unsupported operand type(s) for /: 'str' and 'str'
+
+myint, myint
+1.0
+<class 'float'>
+
+myfloat, myfloat
+1.0
+<class 'float'>
+
+mystring, myint
+unsupported operand type(s) for /: 'str' and 'int'
+
+myint, myfloat
+2.058823529411765
+<class 'float'>
+
+myfloat, mystring
+unsupported operand type(s) for /: 'float' and 'str'
+
+myint, mystring
+unsupported operand type(s) for /: 'int' and 'str'
+
+myfloat, myint
+0.4857142857142857
+<class 'float'>
+
+mystring, myfloat
+unsupported operand type(s) for /: 'str' and 'float'
+
+
+SUMMARY
+
+What went well
+[<function add at 0x10ef5cf28>, <class 'str'>, <class 'str'>, 'FooFoo', <class 'str'>]
+[<function add at 0x10ef5cf28>, <class 'int'>, <class 'int'>, 14, <class 'int'>]
+[<function add at 0x10ef5cf28>, <class 'float'>, <class 'float'>, 6.8, <class 'float'>]
+[<function add at 0x10ef5cf28>, <class 'int'>, <class 'float'>, 10.4, <class 'float'>]
+[<function add at 0x10ef5cf28>, <class 'float'>, <class 'int'>, 10.4, <class 'float'>]
+[<function subtract at 0x10f1fd840>, <class 'int'>, <class 'int'>, 0, <class 'int'>]
+[<function subtract at 0x10f1fd840>, <class 'float'>, <class 'float'>, 0.0, <class 'float'>]
+[<function subtract at 0x10f1fd840>, <class 'int'>, <class 'float'>, 3.6, <class 'float'>]
+[<function subtract at 0x10f1fd840>, <class 'float'>, <class 'int'>, -3.6, <class 'float'>]
+[<function multiply at 0x10f1fd7b8>, <class 'int'>, <class 'int'>, 49, <class 'int'>]
+[<function multiply at 0x10f1fd7b8>, <class 'float'>, <class 'float'>, 11.559999999999999, <class 'float'>]
+[<function multiply at 0x10f1fd7b8>, <class 'str'>, <class 'int'>, 'FooFooFooFooFooFooFoo', <class 'str'>]
+[<function multiply at 0x10f1fd7b8>, <class 'int'>, <class 'float'>, 23.8, <class 'float'>]
+[<function multiply at 0x10f1fd7b8>, <class 'int'>, <class 'str'>, 'FooFooFooFooFooFooFoo', <class 'str'>]
+[<function multiply at 0x10f1fd7b8>, <class 'float'>, <class 'int'>, 23.8, <class 'float'>]
+[<function divide at 0x10f1fd730>, <class 'int'>, <class 'int'>, 1.0, <class 'float'>]
+[<function divide at 0x10f1fd730>, <class 'float'>, <class 'float'>, 1.0, <class 'float'>]
+[<function divide at 0x10f1fd730>, <class 'int'>, <class 'float'>, 2.058823529411765, <class 'float'>]
+[<function divide at 0x10f1fd730>, <class 'float'>, <class 'int'>, 0.4857142857142857, <class 'float'>]
+
+What went sideways
+[<function add at 0x10ef5cf28>, <class 'str'>, <class 'int'>, TypeError('must be str, not int',)]
+[<function add at 0x10ef5cf28>, <class 'float'>, <class 'str'>, TypeError("unsupported operand type(s) for +: 'float' and 'str'",)]
+[<function add at 0x10ef5cf28>, <class 'int'>, <class 'str'>, TypeError("unsupported operand type(s) for +: 'int' and 'str'",)]
+[<function add at 0x10ef5cf28>, <class 'str'>, <class 'float'>, TypeError('must be str, not float',)]
+[<function subtract at 0x10f1fd840>, <class 'str'>, <class 'str'>, TypeError("unsupported operand type(s) for -: 'str' and 'str'",)]
+[<function subtract at 0x10f1fd840>, <class 'str'>, <class 'int'>, TypeError("unsupported operand type(s) for -: 'str' and 'int'",)]
+[<function subtract at 0x10f1fd840>, <class 'float'>, <class 'str'>, TypeError("unsupported operand type(s) for -: 'float' and 'str'",)]
+[<function subtract at 0x10f1fd840>, <class 'int'>, <class 'str'>, TypeError("unsupported operand type(s) for -: 'int' and 'str'",)]
+[<function subtract at 0x10f1fd840>, <class 'str'>, <class 'float'>, TypeError("unsupported operand type(s) for -: 'str' and 'float'",)]
+[<function multiply at 0x10f1fd7b8>, <class 'str'>, <class 'str'>, TypeError("can't multiply sequence by non-int of type 'str'",)]
+[<function multiply at 0x10f1fd7b8>, <class 'float'>, <class 'str'>, TypeError("can't multiply sequence by non-int of type 'float'",)]
+[<function multiply at 0x10f1fd7b8>, <class 'str'>, <class 'float'>, TypeError("can't multiply sequence by non-int of type 'float'",)]
+[<function divide at 0x10f1fd730>, <class 'str'>, <class 'str'>, TypeError("unsupported operand type(s) for /: 'str' and 'str'",)]
+[<function divide at 0x10f1fd730>, <class 'str'>, <class 'int'>, TypeError("unsupported operand type(s) for /: 'str' and 'int'",)]
+[<function divide at 0x10f1fd730>, <class 'float'>, <class 'str'>, TypeError("unsupported operand type(s) for /: 'float' and 'str'",)]
+[<function divide at 0x10f1fd730>, <class 'int'>, <class 'str'>, TypeError("unsupported operand type(s) for /: 'int' and 'str'",)]
+[<function divide at 0x10f1fd730>, <class 'str'>, <class 'float'>, TypeError("unsupported operand type(s) for /: 'str' and 'float'",)]
