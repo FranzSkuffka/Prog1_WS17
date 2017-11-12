@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-""" Examine type precdences """
+""" Examine type precedences """
 __author__      = "Jan Wirth <contact@jan-wirth.de"
 __version__     = "0.0.1"
 
