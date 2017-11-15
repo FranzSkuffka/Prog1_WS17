@@ -62,7 +62,6 @@ id(k)
 # 4297637024
 """
 
-
 def check_immutables():
     """ Anweisungssequenz zum Üben der Änderung einiger unveränderbarer Datentypen """
     objects = set()
@@ -70,58 +69,61 @@ def check_immutables():
 
     #1
     # print('i Before 1' + str(type(i)) + str(id(i)))
-    i = 42              
+    i = 42
     variableNames.add('i')
     objects.add(id(i))
     print('i After 1' + str(type(i)) + str(id(i)))
 
     #2
     # print('i Before 2' + str(type(i)) + str(id(i)))
-    i = list(range(3))  
+    i = list(range(3))
     variableNames.add('i')
     objects.add(id(i))
     print('i After 2' + str(type(i)) + str(id(i)))
 
     #3
     # print('j Before 3' + str(type(j)) + str(id(j)))
-    j = "ABBA"          
+    j = "ABBA"
     variableNames.add('j')
     objects.add(id(j))
     print('j After 3' + str(type(j)) + str(id(j)))
 
     #4
     # print('j Before 4' + str(type(j)) + str(id(j)))
-    j = j + "C"         
+    j = j + "C"
     variableNames.add('j')
     objects.add(id(j))
     print('j After 4' + str(type(j)) + str(id(j)))
 
     #5
     # print('k Before 5' + str(type(k)) + str(id(k)))
-    k = 4               
+    k = 4
     variableNames.add('k')
     objects.add(id(k))
     print('k After 5' + str(type(k)) + str(id(k)))
 
     #6
     # print('t Before 6' + str(type(t)) + str(id(t)))
-    t = (i, j, k)       
+    t = (i, j, k)
     variableNames.add('t')
     objects.add(id(t))
-    print('t After 6' + str(type(t)) + str(id(t)))
+    print('t After 6' + str(type(t)) + str(id(t)), str(t))
 
     #7 append() ist eine Listenfunktion, und hängt ein weiteres Element an die Liste
     # print('i Before 7' + str(type(i)) + str(id(i)))
-    i.append(3)         
+    i.append(3)
     variableNames.add('i')
     objects.add(id(i))
     print('i After 7' + str(type(i)) + str(id(i)))
+    print('t After 7' + str(type(t)) + str(id(t)), str(t))
+    k += 1
+    print('t After k += 1' + str(type(t)) + str(id(t)), str(t))
 
-    print('i', i)
-    print('j', j)
-    print('j', j)
-    print('k', k)
-    print('t', t)
+    # print('i', i)
+    # print('j', j)
+    # print('j', j)
+    # print('k', k)
+    # print('t', t)
 
     print('')
     print('OBJECTS')
@@ -133,31 +135,31 @@ def check_immutables():
     print(variableNames)
     print(len(variableNames))
 
-    
+
     """FRAGEN:
-    
+
     - Wie viele neue Objekte und wie viele neue Variablennamen wurden in der Funktion insgesamt erzeugt? Anhand welcher Eigenschaft kann man die Anzahl der Objekte nachvollziehen?
         ANTWORT: neue Objekte: 6
                  neue Namen: 4
                  Erzeugung neuer Objekte nachvollziehbar durch: Ein set mit der ID des objekts nach jeder operation
     
     - Listen Sie die veränderbaren und unveränderbaren Datentypen auf, die in der Funktion für die Variablen verwendet wurden.
-        ANTWORT: VERÄNDERBAR:
-                 UNVERÄNDERBAR:
+        ANTWORT: VERÄNDERBAR: list
+                 UNVERÄNDERBAR: str, tuple, int, bool, (range)
     
     - Was ist der Datentyp von
-     * i nach #2? ANTWORT:
-     * j nach #4: ANTWORT:
-     * t nach #7: ANTWORT:
+     * i nach #2? ANTWORT: int
+     * j nach #4: ANTWORT: str
+     * t nach #7: ANTWORT: tuple
     
     - Wie sieht t nach #6 und #7 aus?
-     * nach #6: ANTWORT:
-     * nach #7: ANTWORT:
+     * nach #6: ANTWORT: ([0, 1, 2], 'ABBAC', 4)
+     * nach #7: ANTWORT: ([0, 1, 2, 3], 'ABBAC', 4)
      * Warum konnte eine Änderung durchgeführt werden?
-       ANTWORT:
+       ANTWORT: Die Liste in pos 0 ist referenziert. 
      * Wie würde t nach folgender Anweisung aussehen?
        k += 1
-       ANTWORT:
+       ANTWORT: Wie vorher ([0, 1, 2, 3], 'ABBAC', 4) - the primitive '4' is immutable
     
     """
 
