@@ -14,7 +14,7 @@ c = (a == 23)
 d = (([] or None) and [1 ,2 ,3]) # eval of [1, 2, 3] not necessary because `None and whatever` an `whatever and None` are always `None`
 e = ([0] or None)
 f = ((not True) or (d == 0))
-g = (3 and -4) + 1 # -4 not evaluated - for two integer operands, the `and` binary operator always returns the second operand
+g = (3 and (-4 + 1)) # 3 not evaluated - for two integer operands, the `and` binary operator always returns the second operand
 
 
 print("a = " + str (a) + " -- erwarteter Wert : 3")

@@ -145,10 +145,10 @@ def check_immutables():
     
     - Listen Sie die veränderbaren und unveränderbaren Datentypen auf, die in der Funktion für die Variablen verwendet wurden.
         ANTWORT: VERÄNDERBAR: list
-                 UNVERÄNDERBAR: str, tuple, int, bool, (range)
+                 UNVERÄNDERBAR: str, tuple, int, (bool, range)
     
     - Was ist der Datentyp von
-     * i nach #2? ANTWORT: int
+     * i nach #2? ANTWORT: list
      * j nach #4: ANTWORT: str
      * t nach #7: ANTWORT: tuple
     
@@ -156,7 +156,11 @@ def check_immutables():
      * nach #6: ANTWORT: ([0, 1, 2], 'ABBAC', 4)
      * nach #7: ANTWORT: ([0, 1, 2, 3], 'ABBAC', 4)
      * Warum konnte eine Änderung durchgeführt werden?
-       ANTWORT: Die Liste in pos 0 ist referenziert. 
+       ANTWORT:
+         In pos0 des tuples ist eine liste referenziert.
+         Das tuple selbst ist immutable.
+         Die liste nicht.
+         Bei der veraenderung an der liste ueber die referenz i wird die aenderung auch innerhalb des tuples sichtbar.
      * Wie würde t nach folgender Anweisung aussehen?
        k += 1
        ANTWORT: Wie vorher ([0, 1, 2, 3], 'ABBAC', 4) - the primitive '4' is immutable

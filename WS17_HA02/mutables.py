@@ -137,19 +137,18 @@ def check_mutables():
     """FRAGEN:
     
     - Wie viele neue Objekte und wie viele neue Variablennamen wurden in der Funktion insgesamt erzeugt? Anhand welcher Eigenschaft kann man die Anzahl der Objekte nachvollziehen?
-        ANTWORT: neue Objekte: """; print(objects) ;""" -> {4523641608, 4523757896, 4523809400, 4523851464}
-                 neue Namen: """; print(variableNames) ;""" -> {'liste2', 'liste1', 's', 'list_internal'}
+        ANTWORT: neue Objekte: """; print(objects) ;""" -> {4523641608, 4523757896, 4523809400, 4523851464} -> 4
+                 neue Namen: """; print(variableNames) ;""" -> {'liste2', 'liste1', 's', 'list_internal'} -> 4
                  Erzeugung neuer Objekte nachvollziehbar durch:
-                   Sets, sie sind wie listen, nur dass jedes object nur einmal vorkommen darf.
+                   Sets in Kombination mit id(). Sets sie sind wie listen, nur dass jedes object nur einmal vorkommen darf.
 
     - Listen Sie die veränderbaren und unveränderbaren Datentypen auf, die in der Funktion verwendet wurden.
         ANTWORT: VERÄNDERBAR: list
-                 UNVERÄNDERBAR: string, integer, set, range
+                 UNVERÄNDERBAR: string, range, (integer, set)
 
     - Wie viele Elemente hat
      * liste1 nach #7? ANTWORT: len([1, '2', [2, 3, 4], 6]) -> 4
-     * liste2 nach #9: ANTWORT: [1, '2', [2, 3, 4], 6, 7] -> 5
-
+     * liste2 nach #9: ANTWORT: len([1, '2', [2, 3, 4], 6, 7]) -> 5
 
     - Wie sieht das angegebene Objekt aus?
 
@@ -184,17 +183,19 @@ def check_mutables():
      * int is an immutable primitive literal.
      * list.add(s) adds a reference to '3', not to s.
      * s+= "2" is shorthand for s = s + '3' . Note that s + '3' is an expression, not an operation on the value of s
+     * That means that list_internal is not modified.
 
      * Auswirkung von #11 auf liste1:
-     * also here not the reference but the value was passed.
-     * list_internal.append(55) mutates the value inside, which is also referenced in liste1
-
+     * Also here not the reference but the value inside list_interal was used.
+     * list_internal.append(55) mutates the value inside, which is referenced in liste1
+     * Result: liste1 looks different but is actually not mutated (directly).
 
 
     - Wie verhält sich liste2 ab #8 zu liste1? Was passiert bei Änderungen am liste1 oder am liste2?
-    - Warum kann man nach #13 auf liste1 zugreifen?
        Also here both variables reference the same value.
-       del deletes the reference between the variable liste2 and it's value.
+    - Warum kann man nach #13 auf liste1 zugreifen?
+       del deletes the reference from the variable liste2 and its value.
+       The value itself still exists.
        del liste1 would cause the the value to be garbage collected because no variables reference to it anymore.
     """
 check_mutables()
