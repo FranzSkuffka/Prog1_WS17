@@ -14,6 +14,7 @@ def sum_from_to(a, b):
   return reduce(lambda a, b: a + b, list(range(a, b + 1))) # range top is not inclusive
 
 def user_input(msg):
+  """ Asks the user for integers and only accepts integers ;) """
   try:
     return int(input(msg))
   except ValueError:
@@ -21,6 +22,7 @@ def user_input(msg):
     return user_input(msg)
 
 def main():
+  """ run the entire program """
 
   a = user_input('Type the first numba\n')
   print('')
