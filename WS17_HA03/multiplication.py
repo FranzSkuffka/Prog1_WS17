@@ -11,7 +11,7 @@ __author__      = "Jan Wirth <contact@jan-wirth.de"
 __version__     = "0.0.1"
 
 def user_input(msg):
-  """ Asks the user for integers and only accepts integers ;) """
+  """ Asks the user for input and only accepts integers """
   try:
     return int(input(msg))
   except ValueError:
@@ -58,7 +58,7 @@ def main():
   b = user_input('Type the second numbaaa\n')
   print('')
 
-  # Reverse argument order to prevent 
+  # Reverse argument order to prevent
   print_res(a, b)
 
 def print_res(a, b):
@@ -75,4 +75,3 @@ def print_res(a, b):
 
 if __name__ == "__main__":
   main()
-

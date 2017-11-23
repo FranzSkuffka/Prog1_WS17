@@ -21,6 +21,7 @@ def _print(msg):
   return print(msg)
 
 def user_input():
+  """ Take user input. Only accept lowercase words """
   word = _input()
   try:
     re.match('^[a-z]*$', word).group()
@@ -30,6 +31,7 @@ def user_input():
     return user_input()
 
 def remind_user_of_supported_stuff():
+    """ Tells the user that his input is not a lowercase word. """
     _print('Only lowercase characters are supported')
 
 def encrypt (word, shiftBy = 13):
@@ -70,6 +72,7 @@ def shiftLower (char,by):
 
 
 def encrypt_successive_inputs():
+  """ Takes one word at a time and encrypts it using ALbAM """
   word = user_input()
   if word != '':
     _print(encrypt(word))

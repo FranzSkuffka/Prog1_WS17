@@ -47,7 +47,10 @@ def print_progress(percent):
 
 
 def run_update(status_update):
-  """ Simulates an update to the computer """
+  """
+  Simulate an update to the computer given an iterator that returns the statuses from 0 - 100.
+  The last status can be greater than but will be maxed to 100.
+  """
   status = next(status_update)
   sleep(1)
   if status != 100:
@@ -62,7 +65,7 @@ def main():
   update()
 
 def update():
-  """ Simulates an update to the computer """
+  """ Simulate an update to the computer """
   size = user_input('Update size: ')
   speed = user_input('Download speed: ')
   _print('Updating. Do not turn off your computer.'),
