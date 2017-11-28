@@ -1,76 +1,39 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8 -*-
 
-
-""" A basic cryptographer. Takes a word at a time."""
+""" A basic week planner. Takes a word at a time."""
 __author__      = "Jan Wirth <contact@jan-wirth.de"
 __version__     = "0.0.1"
 
 from time import sleep
 
-def _input(msg):
-  """
-  a wrapper for `input`
-  """
-  return input(msg)
+def read_calendar():
+  """ Reads a calendar from a string """
+  register = dict()
+  calendar = """Mo; Logik
+Di; ECL-Tutorium; Prog1
+Mi; ECL
+Do; Prog1-Tutorium; ECL; Prog1 Fr
+Sa; Englisch
+So """
+  days = calendar.split('\n')
+  for day in days:
+    dayName, *dayContents = day.split("; ")
+    register[dayName] = dayContents
+  return register
 
-def _print(msg):
-  """
-  a wrapper for `print`
-  """
-  return print(msg)
-
-def user_input(msg = ''):
-  """ Ask user for an integer """
+def query_calendar():
+  registry = read_calendar()
+  query = input('Which day? ').strip('')
   try:
-    return int(_input(msg))
-  except ValueError:
-    return user_input(msg)
-
-def progress_status(size, speed):
-  """ A generator that emulates the progress of updates after fixed length time steps. """
-  step_size = speed / size * 100
-  step = 0
-  status = 0
-
-  while status < 100:
-    status = step_size * step
-    step += 1
-    if status <= 100:
-      yield status
-    elif status > 100:
-      yield 100
-
-def print_progress(percent):
-  """ Prints a number as percent """
-  _print(str(int(percent)) + '%')
-
-
-def run_update(status_update):
-  """
-  Simulate an update to the computer given an iterator that returns the statuses from 0 - 100.
-  The last status can be greater than but will be maxed to 100.
-  """
-  status = next(status_update)
-  sleep(1)
-  if status != 100:
-    print_progress(status)
-    run_update(status_update)
-  elif status == 100:
-    print_progress(100)
-    _print('DONE')
+    print(registry[query])
+    query_calendar()
+  except KeyError:
     return
 
-def main():
-  update()
 
-def update():
-  """ Simulate an update to the computer """
-  size = user_input('Update size: ')
-  speed = user_input('Download speed: ')
-  _print('Updating. Do not turn off your computer.'),
-  progress = progress_status(size, speed)
-  run_update(progress)
+def main():
+  query_calendar()
 
 if __name__ == "__main__":
   main()
