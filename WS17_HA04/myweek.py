@@ -5,8 +5,6 @@
 __author__      = "Jan Wirth <contact@jan-wirth.de"
 __version__     = "0.0.1"
 
-from time import sleep
-
 def read_calendar():
   """ Reads a calendar from a string """
   register = dict()

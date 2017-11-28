@@ -19,8 +19,14 @@ def oneliner_1():
 
 
 def multiliner_1():
-    # TODO: implementation
-    pass
+    a = input("Geben Sie eine Zahl: ")
+    a = int(a)
+    a = str(a)
+
+    b = input("Geben Sie eine zweite Zahl: ")
+    b = int(b)
+    res = a * b
+    return res
 
 
 def oneliner_2(mystring):
@@ -29,8 +35,11 @@ def oneliner_2(mystring):
 
 
 def multiliner_2(mystring):
-    # TODO: implementation
-    pass
+    myStringButPast = mystring.replace("ist", "war")
+    mystringAsList = myStringButPast.split()
+    asLines = "\n".join(mystringAsList)
+    UPPER = asLines.upper()
+    return UPPER
 
 
 def multiliner_3(text):
@@ -43,10 +52,8 @@ def multiliner_3(text):
 
 
 def oneliner_3(text):
+    return sorted(list(set(list(text.lower()))))
     # TODO: DocString and implementation
-    pass
-    
-
 
 if __name__ == "__main__":
     mystring_candidate_1 = "Heute ist das Wetter so schön."
