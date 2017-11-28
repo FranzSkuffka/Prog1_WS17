@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8 -*-
 
-""" A basic week planner. Takes a word at a time."""
+""" A basic week planner. Takes a day at a time."""
 __author__      = "Jan Wirth <contact@jan-wirth.de"
 __version__     = "0.0.1"
 
