@@ -1,11 +1,12 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8 -*-
 
-""" A basic week planner. Takes a day at a time."""
+""" A basic assert implemenation that checks the equality of two values."""
 __author__      = "Jan Wirth <contact@jan-wirth.de"
 __version__     = "0.0.1"
 
 def check_equality(a, b):
+  """ compare two values and print the result """
   if a == b :
     print("SAME VALUE: " + str(a))
   else:
