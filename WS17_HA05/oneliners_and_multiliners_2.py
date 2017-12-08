@@ -1,24 +1,32 @@
 #!/usr/bin/env python3
 
 """Übung zur Umwandlung von Einzeilern zu Mehrzeilern und umgekehrt.
+__author__      = "Jan Wirth <contact@jan-wirth.de"
+__version__     = "0.0.1"
+
 
 - zu implementieren: multiliner_1(), oneliner_2(), oneliner_3()
 - zu dokumentieren: alle "oneliners" (1, 2, 3)
 
-Author:
+Author: Jan Wirth
 
 """
 
 import sys
 import checker_emm as checker
+import re
 
 def oneliner_1(mystring, given_char="e"):
+    """count occurences of char in string. char defaults to 'e'"""
     return [char for char in mystring].count(given_char)
 
 
 def multiliner_1(mystring, given_char="e"):
-    pass
-    #TODO
+    char_list = []
+    for char in mystring:
+        char_list.append(char)
+    counted = char_list.count(given_char)
+    return counted
 
 
 def multiliner_2(text):
@@ -30,10 +38,9 @@ def multiliner_2(text):
             filtered_lines.append(cleared_line)
     return filtered_lines
 
-
 def oneliner_2(text):
-    pass
-    # TODO
+    """ Take a multiline-text, return non-empty lines as list """
+    return list(filter(lambda line: line, map(lambda line: line.strip(), text.splitlines())))
 
 
 def multiliner_3(text, query="Jorinde"):
@@ -47,8 +54,12 @@ def multiliner_3(text, query="Jorinde"):
 
 
 def oneliner_3(text, query="Jorinde"):
-    pass
-    # TODO
+    """ Count occurences of a token in a string. """
+    return len(list(filter(lambda word: word == query, text.split())))
+    # Using regEx: We get a different but better results here.
+    # return len(re.findall(re.compile("\s" + query + "\s"), text))
+    # In mystring_candidate the RegEx finds 4 occurences.
+    # The example implementation does not recognize "Jorinde:" in 4:40 of the string
 
 
 if __name__ == "__main__":
