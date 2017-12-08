@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#
+from checker_emm import check_equality
 
 """Hausaufgabe für Prog1_WS17 HA05
 
@@ -51,21 +53,35 @@ Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg'f qb zber bs gubfr!"""
 
 
 def this_v1(mystring):
-    """TODO
-    """
-    d = {}
-    for c in (65, 97):
+    """Decrypt a multiline ALbAM encrypted string"""
+    d = {} # create a dict that maps the encrypted char onto the decrypted equivalent
+    for c in (65, 97): # uppercase & lowercase chars
+        print('c ' + str(c))
         for i in range(26):
-            d[chr(i + c)] = chr((i + 13) % 26 + c)
+            print('i ' + str(i))
+            d[chr(i + c)] = chr((i + 13) % 26 + c) # module to check if index exceeds alphabet boundaries
     
     return "".join([d.get(c, c) for c in mystring])
 
 
 def this_maximallong(mystring):
-    pass
-    #TODO
+    d = {}
+    for c in (65, 97):
+        for i in range(26):
+            shifted = i + 13
+            rest = shifted % 26
+            shifted_case = rest + c
+            decrypted = chr(shifted_case)
+            key = chr(i + c)
+            d[key] = decrypted
+
+    res_chars = []
+    for c in s:
+        source_from_dict = d.get(c, c)  # fallback to c if key is not found in dict
+        res_chars.append(source_from_dict)
+    output = "".join(res_chars)
+    return output
 
 
 if __name__ == "__main__":
-    pass
-    
+    print(check_equality(this_v1(s), this_maximallong(s)))
