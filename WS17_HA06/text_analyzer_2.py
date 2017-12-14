@@ -11,7 +11,7 @@ Zur Interpretation der Einheit 'Wort' (Token) werden zwei Optionen bereitgestell
 - einfach (e): Eingabe wird an Leerzeichen aufgetrennt, d.h. alle Zeichen und zusammenhängende Zeichensequenzen außer beliebige Leerzeichen werden als 'Wort' interpretiert.
 - heuristisch (h): wie "einfach", aber Satzzeichen am Anfang oder Ende eines Wortes werden nicht als Teil eines Wortes angesehen
 
-Autor: Eva Mujdricza-Maydt (mujdricza@cl.uni-heidelberg.de), bearbeitet von Lennard Boehnke
+Autor: Eva Mujdricza-Maydt (mujdricza@cl.uni-heidelberg.de), bearbeitet von Jan Wirth
 Version: 20171123
 
 Beispielaufruf:

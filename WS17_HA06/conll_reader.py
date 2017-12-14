@@ -2,7 +2,7 @@
 
 # -----------------------------------
 # Version: 0.0.1
-# Author: Lennard Böhnke
+# Author: Jan Wirth
 # Description: Extract ngram sequences from tokenized file
 # Last modified: 2017-12-12T18:02:19.239Z
 # -----------------------------------

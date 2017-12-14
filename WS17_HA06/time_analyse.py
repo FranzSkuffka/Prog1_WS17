@@ -2,7 +2,7 @@
 
 # -----------------------------------
 # Version: 0.0.1
-# Author: Lennard Böhnke
+# Author: Jan Wirth
 # Description: Insert description here
 # Last modified: 2017-12-12T20:22:51.699Z
 # -----------------------------------

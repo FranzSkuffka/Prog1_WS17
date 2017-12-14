@@ -2,7 +2,7 @@
 
 """Übung zur Erzeugung und Behandlung von Fehlern
 
-Autor: Lennard Boehnke
+Autor: Jan Wirth
 Version: 20171208
 """
 
