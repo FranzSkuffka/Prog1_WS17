@@ -7,6 +7,7 @@ __version__     = "0.0.1"
 
 from itertools import groupby
 from functools import reduce
+from nltk.tokenize import word_tokenize
 import re
 
 def _input(msg):
@@ -42,11 +43,17 @@ def sum (a = 0, b = 0): return a + b
 def interactive_analysis():
   text = _input('Please enter some text here: ')
   mode = _input('Please choose (s)imple (h)euristic: ')
-  tokens = text.split(' ')
+  lang = _input('Language: ')
   if mode == 's':
-    analyze(tokens)
+    analyze(text.split(' '))
   elif mode == 'h':
-    analyze(list(map(preprocess, tokens)))
+    analyze(re.findall(re.compile('[a-zA-Z]+'), text))
+  elif mode == 'n':
+    try:
+      analyze(word_tokenize(text, lang, preserve_line=False))
+    except LookupError:
+      _print('Language not found: "Hermann". Falling back to "English"')
+      analyze(word_tokenize(text, 'English', preserve_line=False))
   else:
     _print('Mode not supported: "' + mode + '"')
 
