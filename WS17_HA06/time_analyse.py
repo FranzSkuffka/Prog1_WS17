@@ -3,8 +3,6 @@
 # -----------------------------------
 # Version: 0.0.1
 # Author: Jan Wirth
-# Description: Insert description here
-# Last modified: 2017-12-12T20:22:51.699Z
 # -----------------------------------
 
 import sys
@@ -80,7 +78,7 @@ def search_v4(word_list, term="prosecuted"):
 
 def back_to_the_future_process(iterations, function):
     """Duration tests by iteration of process functions."""
-    print("\n{}-maliger AUFRUF von ’{}’".format(iterations, function))
+    print("Calling ’{}’ {} times".format(function, iterations))
     start = time.time()
     for i in range(int(iterations)):
         function(line_list)
@@ -92,7 +90,7 @@ def back_to_the_future_search(iterations, function):
     """Duration tests by iteration of search functions."""
     word_list = [line.split()[3] for line in line_list]
 
-    print("\n{}-maliger AUFRUF von ’{}’".format(iterations, function))
+    print("Calling ’{}’ {} times".format(function, iterations))
     start = time.time()
     for i in range(int(iterations)):
         function(word_list)
