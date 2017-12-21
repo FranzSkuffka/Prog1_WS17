@@ -17,95 +17,47 @@ doc = """
 
 
 import sys
-import random
+import re
 
-def find_ngrams(input_list, n):
-  return zip(*[input_list[i:] for i in range(n)])
+def check(pairs):
+  print('checking', pairs)
+
+def extract_html_line(line):
+  type = re.search('class="(.*)"', line).group().split('"')[1]
+  tokens = (
+      re.search('>(\S+)', line).group()[1:]
+    , re.search('(\S+)<', line).group()[:-1]
+  )
+  return (type, tokens)
 
 
-bases = [
-  "T",
-  "C",
-  "A",
-  "G"
-]
+filter_usable = lambda lines: list(filter(lambda line: re.search(re.compile('  '), line), lines))
+def extract_txt_lines(type, lines):
+  usable = filter_usable(lines.split('\n'))
+  matches = list(map( lambda line: re.findall('\S+', line), usable))
+  return list(map( lambda match: (type, (match[0], match[1])), matches))
 
-complements = {
-  "A": "T",
-  "G": "C",
-  "T": "A",
-  "C": "G"
-}
+def read(path):
+  mode = path.split('.')[1]
+  if mode == 'html':
+    print('\nHTML MODE')
 
-def generate_dna(length, matching):
-  rna = generate_rna(length)
-  if matching:
-    return list(map(lambda base: [base, matching_base(base)], rna))
-  else:
-    return list(map(lambda base: [base, random_base(base)], rna))
+    with open(path) as active_file:
+      lines = active_file.readlines()
+      usable_lines = list(filter(lambda line: re.search(re.compile('class'), line), lines))
+      pairs = list(map(extract_html_line, usable_lines))
 
-def matching_base(source):
-  return complements[source]
+      return pairs
 
-def random_base(_):
-  return bases[random.randrange(0, 4)]
+  if mode == 'txt':
+    print('\nTXT MODE')
 
-def generate_rna(length):
-  skeleton = list(range(0, length))
-  return list(map(random_base, skeleton))
+    with open(path) as active_file:
+      [minimal_txt, non_minimal_txt] = active_file.read().split('\n\n')
 
-def write_rendered (path, dna_render):
-    with open(path, "w") as output:
-      output.write(dna_render)
-    return
-
-def matches(pair):
-  return pair[1] == complements[pair[0]]
-
-def check_dna(path):
-  with open(path) as active_file:
-    lines = active_file.readlines()
-
-    print('Analysing DNA')
-    print('\n'.join(lines))
-    match_list = list(map(lambda line: matches(line.split()), lines))
-    total_base_count = len(match_list)
-    matching_base_count = len(list(filter(lambda i: i, match_list)))
-    matching_percent = matching_base_count / total_base_count * 100
-
-    print( "DNA pairs match with " + str(matching_percent) + "%")
-
-def render_dna (dna):
-  return ''.join(list(map(lambda pair: pair[0] + " " + pair[1] + "\n", dna)))
-
-def generate_and_write(path, mode, length):
-  if mode == 'random':
-    generated  = generate_dna(int(length), False)
-  elif mode == 'matching':
-    generated  = generate_dna(int(length), True)
-  else:
-    print("ERROR, UNSUPPORTED MODE: " + mode)
-    return print(doc)
-
-  rendered = render_dna(generated)
-  print("writing new " + mode + " DNA with length " + length + " to file " + path)
-  print(rendered)
-  write_rendered(path, rendered)
-  
+      return extract_txt_lines('minimal', minimal_txt) + extract_txt_lines('notminimal', non_minimal_txt)
 
 if __name__ == "__main__":
-  print("starting DNA tools")
-  try:
-    mode = sys.argv[1]
-    file_path = sys.argv[2]
-    if mode == 'generate':
-      generation_mode = sys.argv[3]
-      length = sys.argv[4]
-      generate_and_write(file_path, generation_mode, length)
-    elif mode == 'analyse':
-      check_dna(file_path)
-    else:
-      print(doc)
-  except:
-    print("ERROR")
-    print(doc)
+  print("\nstarting minimal pair checker")
+  pairs = read(sys.argv[1])
+  print(pairs)
