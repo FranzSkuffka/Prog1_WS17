@@ -1,0 +1,19 @@
+#Minimalpaare
+Bild    mild
+bitte   Bitte
+bitte   bitten
+Bitte   Mitte
+Fahne   ahne
+Schlange    Schlangen
+windet  wendet
+sprich  sprach
+ob  Bob
+
+#keine Minimalpaare
+Heidi   Hilde
+aktiv   aktiv
+wild    Wind
+schlagen    Schlangen
+Küche   Mücke
+Rücken  Küken
+Eleonore    Elefant
