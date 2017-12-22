@@ -51,7 +51,7 @@ def summarize_sentence_analysis (sentences_meta):
   sorted_meta = list(reversed(sentences_meta))
   avg_sentence_length = reduce(lambda a, b: a+b, map(lambda meta: meta[2], sorted_meta))/ len(sorted_meta)
   print('Analysed', len(sentences_meta), 'files with a total of', total_sentence_count,'sentences.')
-  print('Avg sentence length is', avg_sentence_length)
+  print('Avg sentence length is', round(avg_sentence_length, 2))
   print('#sentences\tavg sentence length\tfilename')
   list(map(lambda sent: print(str(sent[1]) + '\t\t' + str(round(sent[2], 2)) + '\t' + str(sent[0])), reversed(sorted_meta)))
 
@@ -62,11 +62,11 @@ if __name__ == "__main__":
   pattern = path + '/**/*' + file_identifier
   if mode == 'word':
     word_type = sys.argv[4]
-    print('Analysing words with type ' + word_type)
+    files = load_corpus_by_file(pattern) # glad the computer is not as lazy as I am
     lines = load_corpus_lines(pattern)
     lines_in_cells = map(lambda line: list(filter(lambda col: col != '', line.split(' '))), lines)
     relevant_data = map(lambda parts: (parts[3], parts[4]), lines_in_cells)
-    only_words_with_given_type = filter(lambda word: word[1] == word_type, relevant_data)
+    only_words_with_given_type = list(filter(lambda word: word[1] == word_type, relevant_data))
 
     # sort | uniq -c
     groups_iterable = groupby(sorted(only_words_with_given_type, key=lambda word: word[0]), lambda word: word[0])
@@ -76,6 +76,8 @@ if __name__ == "__main__":
     # sort
     groups_by_size = sorted(groups, key=lambda group: len(list(group[1])))
 
+    print('Analysing words with type ' + word_type)
+    print('Read', len(files), 'files and found', len(only_words_with_given_type), 'words with the given type.')
     print('Frequency of words identified by ' + word_type + ' in the corpus ' + file_identifier)
     list(map(lambda group: print(len(group[1]), group[0]), reversed(groups_by_size)))
   elif mode == 'sent':
