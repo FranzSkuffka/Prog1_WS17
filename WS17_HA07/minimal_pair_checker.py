@@ -5,16 +5,13 @@ doc = """
 # -----------------------------------
 # Version: 0.0.1
 # Author: Jan Wirth
-# Description: Create and analyze a DNA sequence
+# Description: Check a list of strings if they are minimal pairs. Supports HTML and TXT formats.
 # 
 # Usage:
-# python3 dna.py generate my_dna random 10
-# python3 dna.py generate my_dna matching 10
-#
-# python3 dna.py analyse my_dna
+# python3 my_pairs.html
+# python3 my_pairs.txt
 # -----------------------------------
 """
-
 
 import sys
 import re
@@ -57,47 +54,61 @@ def read(path):
 
       return extract_txt_lines('minimal', minimal_txt) + extract_txt_lines('notminimal', non_minimal_txt)
 
+def compare_equal_length(pair):
+  type = pair[0]
+  a = pair[1][0]
+  b = pair[1][1]
+  mismatch_count = 0
+  for i in range(len(a)):
+    if a[i] != b[i]:
+      mismatch_count = mismatch_count + 1
+  if mismatch_count == 1 and type == 'minimal': # TRUE POSITIVE
+    return (type, (a, b), 'TP')
+  elif type == 'minimal': # FALSE NEGATIVE
+    return (type, (a, b), 'FN')
+  elif mismatch_count == 1 and type == 'notminimal': # FALSE POSITIVE
+    return (type, (a, b), 'FP')
+  elif type == 'notminimal': # TRUE NEGATIVE
+    return (type, (a, b), 'TN')
+
+def compare_different_length (pair, longer, shorter):
+  type = pair[0]
+  a = pair[1][0]
+  b = pair[1][1]
+  for i in range(len(longer)):
+    if longer[:i] + longer[i+1:] == shorter:
+      return (type, (a, b), 'TP')
+  if (type == 'notminimal'):
+    return (type, (a, b), 'TN')
+  elif (type == 'minimal'):
+    return (type, (a, b), 'FN')
+
 def compare (pair):
   type = pair[0]
   a = pair[1][0]
   b = pair[1][1]
-  if len(a) == len(b):
-    mismatch_count = 0
-    for i in range(len(a)):
-      if a[i] != b[i]:
-        mismatch_count = mismatch_count + 1
-    if mismatch_count == 1 and type == 'minimal': # TRUE POSITIVE
-      return (type, pair[1], 'TP')
-    elif type == 'minimal': # FALSE NEGATIVE
-      return (type, pair[1], 'FN')
-    elif mismatch_count == 1 and type == 'notminimal': # FALSE POSITIVE
-      return (type, pair[1], 'FP')
-    elif type == 'notminimal': # TRUE NEGATIVE
-      return (type, pair[1], 'TN')
+  if abs(len(a) - len(b)) > 1:
+    return (type, (a, b), 'TN')
+  elif len(a) == len(b):
+    return compare_equal_length(pair)
+  elif len(a) - len(b) == 1:
+    return compare_different_length(pair, a, b)
+  elif len(b) - len(a) == 1:
+    return compare_different_length(pair, b, a)
 
+def summarize(res):
+  minimals = list(filter(lambda pair: pair[2] == 'TP', res))
+  non_minimals = list(filter(lambda pair: pair[2] == 'TN', res))
+  print('\nTOTAL NUMBER OF PAIRS ANALYSED: ' + str(len(res)))
+  print('\nTOTAL NUMBER OF MINIMAL PAIRS FOUND: ' + str(len(minimals)))
 
-def levenshtein(s1, s2):
-    if len(s1) < len(s2):
-        return levenshtein(s2, s1)
-
-    # len(s1) >= len(s2)
-    if len(s2) == 0:
-        return len(s1)
-
-    previous_row = range(len(s2) + 1)
-    for i, c1 in enumerate(s1):
-        current_row = [i + 1]
-        for j, c2 in enumerate(s2):
-            insertions = previous_row[j + 1] + 1 # j+1 instead of j since previous_row and current_row are one character longer
-            deletions = current_row[j] + 1       # than s2
-            substitutions = previous_row[j] + (c1 != c2)
-            current_row.append(min(insertions, deletions, substitutions))
-        previous_row = current_row
-    
-    return previous_row[-1]
+  print('\nMATCHED')
+  list(map(lambda analysed_pair: print(analysed_pair[1][0], analysed_pair[1][1]), minimals))
+  print('\nNOT MATCHED')
+  list(map(lambda analysed_pair: print(analysed_pair[1][0], analysed_pair[1][1]), non_minimals))
 
 if __name__ == "__main__":
   print("\nstarting minimal pair checker")
   pairs = read(sys.argv[1])
-  print(pairs)
-  print(list(map(compare, pairs)))
+  res = list(map(compare, pairs))
+  summarize(res)
