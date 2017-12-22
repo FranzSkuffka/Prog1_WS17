@@ -5,110 +5,50 @@ doc = """
 # -----------------------------------
 # Version: 0.0.1
 # Author: Jan Wirth
-# Description: Check a list of strings if they are minimal pairs. Supports HTML and TXT formats.
+# Description: Analyse a corpus of text.
 # 
 # Usage:
-# python3 my_pairs.html
-# python3 my_pairs.txt
+# python3 text_statistics.py word ./on-conll12-eng-train-bn/ .v4_gold_conll CC
+# python3 text_statistics.py sent ./on-conll12-eng-train-bn/ .v4_gold_conll CC
 # -----------------------------------
 """
 
 import sys
 import re
+import glob
+import nltk
+from itertools import groupby
 
-def check(pairs):
-  print('checking', pairs)
+def load_text(path):
+  return open(path, 'r').read()
 
-def extract_html_line(line):
-  type = re.search('class="(.*)"', line).group().split('"')[1]
-  tokens = (
-      re.search('>(\S+)', line).group()[1:]
-    , re.search('(\S+)<', line).group()[:-1]
-  )
-  return (type, tokens)
-
-
-filter_usable = lambda lines: list(filter(lambda line: re.search(re.compile('  '), line), lines))
-def extract_txt_lines(type, lines):
-  usable = filter_usable(lines.split('\n'))
-  matches = list(map( lambda line: re.findall('\S+', line), usable))
-  return list(map( lambda match: (type, (match[0], match[1])), matches))
-
-def read(path):
-  mode = path.split('.')[1]
-  if mode == 'html':
-    print('\nHTML MODE')
-
-    with open(path) as active_file:
-      lines = active_file.readlines()
-      usable_lines = list(filter(lambda line: re.search(re.compile('class'), line), lines))
-      pairs = list(map(extract_html_line, usable_lines))
-
-      return pairs
-
-  if mode == 'txt':
-    print('\nTXT MODE')
-
-    with open(path) as active_file:
-      [minimal_txt, non_minimal_txt] = active_file.read().split('\n\n')
-
-      return extract_txt_lines('minimal', minimal_txt) + extract_txt_lines('notminimal', non_minimal_txt)
-
-def compare_equal_length(pair):
-  type = pair[0]
-  a = pair[1][0]
-  b = pair[1][1]
-  mismatch_count = 0
-  for i in range(len(a)):
-    if a[i] != b[i]:
-      mismatch_count = mismatch_count + 1
-  if mismatch_count == 1 and type == 'minimal': # TRUE POSITIVE
-    return (type, (a, b), 'TP')
-  elif type == 'minimal': # FALSE NEGATIVE
-    return (type, (a, b), 'FN')
-  elif mismatch_count == 1 and type == 'notminimal': # FALSE POSITIVE
-    return (type, (a, b), 'FP')
-  elif type == 'notminimal': # TRUE NEGATIVE
-    return (type, (a, b), 'TN')
-
-def compare_different_length (pair, longer, shorter):
-  type = pair[0]
-  a = pair[1][0]
-  b = pair[1][1]
-  for i in range(len(longer)):
-    if longer[:i] + longer[i+1:] == shorter:
-      return (type, (a, b), 'TP')
-  if (type == 'notminimal'):
-    return (type, (a, b), 'TN')
-  elif (type == 'minimal'):
-    return (type, (a, b), 'FN')
-
-def compare (pair):
-  type = pair[0]
-  a = pair[1][0]
-  b = pair[1][1]
-  if abs(len(a) - len(b)) > 1:
-    return (type, (a, b), 'TN')
-  elif len(a) == len(b):
-    return compare_equal_length(pair)
-  elif len(a) - len(b) == 1:
-    return compare_different_length(pair, a, b)
-  elif len(b) - len(a) == 1:
-    return compare_different_length(pair, b, a)
-
-def summarize(res):
-  minimals = list(filter(lambda pair: pair[2] == 'TP', res))
-  non_minimals = list(filter(lambda pair: pair[2] == 'TN', res))
-  print('\nTOTAL NUMBER OF PAIRS ANALYSED: ' + str(len(res)))
-  print('\nTOTAL NUMBER OF MINIMAL PAIRS FOUND: ' + str(len(minimals)))
-
-  print('\nMATCHED')
-  list(map(lambda analysed_pair: print(analysed_pair[1][0], analysed_pair[1][1]), minimals))
-  print('\nNOT MATCHED')
-  list(map(lambda analysed_pair: print(analysed_pair[1][0], analysed_pair[1][1]), non_minimals))
+def load_corpus_lines(path, file_identifier):
+  pattern = path + '/**/*' + file_identifier
+  files = glob.iglob(pattern, recursive=True)
+  corpus = '\n'.join(list(map(load_text, files)))
+  lines = corpus.split('\n')
+  valid_lines = filter(lambda line: line[:2] == 'bn', lines)
+  return valid_lines
 
 if __name__ == "__main__":
-  print("\nstarting minimal pair checker")
-  pairs = read(sys.argv[1])
-  res = list(map(compare, pairs))
-  summarize(res)
+  mode = sys.argv[1]
+  path = sys.argv[2]
+  file_identifier = sys.argv[3]
+  if mode == 'word':
+    word_type = sys.argv[4]
+    print('Analysing words with type ' + word_type)
+    lines = load_corpus_lines(path, file_identifier)
+    lines_in_cells = map(lambda line: list(filter(lambda col: col != '', line.split(' '))), lines)
+    relevant_data = map(lambda parts: (parts[3], parts[4]), lines_in_cells)
+    only_words_with_given_type = filter(lambda word: word[1] == word_type, relevant_data)
+
+    # sort | uniq -c
+    groups_iterable = groupby(sorted(only_words_with_given_type, key=lambda word: word[0]), lambda word: word[0])
+    # convert from iterable object to the real shit
+    groups = map(lambda group: (group[0], list(group[1])), groups_iterable)
+
+    # sort
+    groups_by_size = sorted(groups, key=lambda group: len(list(group[1])))
+
+    print('Frequency of words identified by ' + word_type + ' in the corpus ' + file_identifier)
+    list(map(lambda group: print(len(group[1]), group[0]), reversed(groups_by_size)))
