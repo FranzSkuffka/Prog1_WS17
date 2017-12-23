@@ -1,2 +1,2 @@
 default:
-	tar -czvf Prog1_WS17-WIRTH-JAN-HA06.tar.gz *.py
+	tar -czvf Prog1_WS17-WIRTH-JAN-HA07.tar.gz *.py
