@@ -2,7 +2,7 @@ doc = """
 # -----------------------------------
 # Version: 0.0.1
 # Author: Jan Wirth
-# Description: Load corpora given a glob pattern.text.
+# Description: Load corpora given a glob pattern.
 # -----------------------------------
 """
 

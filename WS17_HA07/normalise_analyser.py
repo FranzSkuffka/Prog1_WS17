@@ -1,3 +1,11 @@
+doc = """
+# -----------------------------------
+# Version: 0.0.1
+# Author: Jan Wirth
+# Description: Analyse a corpus of with and without normalisation.
+# -----------------------------------
+"""
+
 from corpus_loader import load_corpus_by_file, load_corpus_lines
 from sentence_analyser import analyse_sentences
 from itertools import groupby
