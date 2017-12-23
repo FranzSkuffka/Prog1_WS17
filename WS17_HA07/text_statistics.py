@@ -16,6 +16,7 @@ import sys
 
 from sentence_analyser import analyse_mode_sentence
 from word_analyser import analyse_mode_word
+from normalise_analyser import analyse_mode_normalise
 
 if __name__ == "__main__":
   mode = sys.argv[1]
@@ -30,5 +31,11 @@ if __name__ == "__main__":
   elif mode == 'sent':
     print('STARTING MODE', mode)
     analyse_mode_sentence(pattern)
+
+  elif mode == 'normalise':
+    word_frequency_threshold = sys.argv[4]
+    print('STARTING MODE', mode)
+    analyse_mode_normalise(pattern, int(word_frequency_threshold))
+
   else:
     print('unsupported mode', mode)

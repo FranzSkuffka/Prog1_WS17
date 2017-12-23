@@ -9,11 +9,14 @@ doc = """
 from corpus_loader import load_corpus_by_file
 from functools import reduce
 
-def analyse_mode_sentence(pattern):
-  sentence_corpora = load_corpus_by_file(pattern)
+def analyse_sentences(sentence_corpora):
   clean_sentence_corpora = list(map(lambda file_corpus: (file_corpus[0], '\n'.join(file_corpus[1].split('\n')[1:-3])), sentence_corpora))
   analysed_files = list(map(analyse_file_corpus_sentences, clean_sentence_corpora))
-  summarize_sentence_analysis(analysed_files)
+  return analysed_files
+
+def analyse_mode_sentence(pattern):
+  sentence_corpora = load_corpus_by_file(pattern)
+  summarize_sentence_analysis(analyse_sentences(sentence_corpora))
 
 def analyse_file_corpus_sentences(file_with_corpus):
   corpus = file_with_corpus[1]
