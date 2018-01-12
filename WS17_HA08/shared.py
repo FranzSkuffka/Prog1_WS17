@@ -25,15 +25,22 @@ POS_MAP = {
   'N': 'n',
   'V': 'v',
   'J': 'a',
-  'R': 'r',
-  'S': 's'
+  'R': 'r'
 }
 
+"""
+get the POS WN constant
+ignores ADJ
+"""
 def get_wn_pos_constant(pos):
+  if pos == 'MD'
+    key = 'V'
+  else
+    key = POS_MAP[pos[0:1]]
   try:
-    constant = POS_MAP[pos[0:1]]
+    constant = POS_MAP[key]
   except KeyError:
-    constant = POS_MAP['S']
+    constant = POS_MAP['N']
   return constant
 
 def lemmatize(word, pos):
