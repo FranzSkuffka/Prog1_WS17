@@ -1,22 +1,13 @@
-# TODO - use PENN Treebank word types
+#! /usr/bin/env python3
+
+# -----------------------------------
+# Version: 0.0.1
+# Author: Jan Wirth
+# Description: Functional NLTK Pipeline for tagging and lemmatising
+# -----------------------------------
 
 import nltk
-Lemmatizer = nltk.stem.WordNetLemmatizer()
-
-""" Read a file by filename its contents """
-def read_file(filename):
-  with open(filename) as active_file:
-    return active_file.read()
-
-""" Write lines to a file """
-def write_file(filename, lines):
-  with open(filename, 'w') as active_file:
-    for line in lines:
-      active_file.write(line)
-
-def render_line(token_tuple):
-  return token_tuple
-
+from shared import read_file, write_file, lemmatize
 
 """ Take a sentence as string. Return array of (original_word, lemmatized, POS) """
 def process_sentence(sent):
@@ -24,25 +15,8 @@ def process_sentence(sent):
   tagged = nltk.pos_tag(tokenized, tagset=None, lang='eng')
   return list(map(lemmatize_word, tagged))
 
-POS_MAP = {
-  'N': 'n',
-  'V': 'v',
-  'J': 'a',
-  'R': 'r',
-  'S': 's'
-}
-
-def get_wn_pos_constant(pos):
-  try:
-    constant = POS_MAP[pos[0:1]]
-  except KeyError:
-    constant = POS_MAP['S']
-  return constant
-
-
 def lemmatize_word(word_tuple):
-  pos = get_wn_pos_constant(word_tuple[1])
-  lemma = Lemmatizer.lemmatize(word_tuple[0], pos='n')
+  lemma = lemmatize(word_tuple[0], word_tuple[1])
   return (word_tuple[0], lemma, word_tuple[1])
 
 def annotate_corpus_with_nltk_pipeline(input_filename, language):
